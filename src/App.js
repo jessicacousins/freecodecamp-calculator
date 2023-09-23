@@ -9,7 +9,7 @@ function App() {
   const [displayValue, setDisplayValue] = useState("0");
   const [formula, setFormula] = useState("");
   const [evaluated, setEvaluated] = useState(false);
-  const [lastAction, setLastAction] = useState(null);
+  const [lastAction, setLastAction] = useState(null); // eslint-disable-line no-unused-vars
 
   const handleNumberClick = (value) => {
     if (displayValue === "0" || evaluated) {
@@ -39,7 +39,8 @@ function App() {
       setDisplayValue("0");
       setEvaluated(false);
     } else {
-      const lastCharIsOperator = /[+\/*-]$/.test(formula);
+      // const lastCharIsOperator = /[+\/*-]$/.test(formula);
+      const lastCharIsOperator = /[+/*-]$/.test(formula);
 
       if (operator === "-" && lastCharIsOperator) {
         setDisplayValue("-");
@@ -68,9 +69,15 @@ function App() {
 
         evalFormula = evalFormula.replace(/(-\d+(\.\d+)?)$/, "($1)");
 
+        // const result = isNumeric(displayValue)
+        //   ? eval(evalFormula + displayValue)
+        //   : 0;
+
+        /* eslint-disable no-eval */
         const result = isNumeric(displayValue)
           ? eval(evalFormula + displayValue)
           : 0;
+        /* eslint-enable no-eval */
 
         setDisplayValue(String(result));
         setFormula(evalFormula + displayValue + "=" + String(result));
