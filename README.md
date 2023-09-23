@@ -6,6 +6,10 @@ This repo is a calculator app built using React and the math.js library for eval
 
 ## Deployed on Netlify
 
+```
+https://main--classy-halva-0408a5.netlify.app/
+```
+
 ## Dependencies
 
 `npm install mathjs`
