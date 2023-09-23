@@ -1,23 +1,15 @@
 import React, { useState } from "react";
 import "./App.css";
-import { evaluate } from "mathjs";
 
-const evaluateFormula = (formula) => {
-  return evaluate(formula);
-};
+function isNumeric(value) {
+  return !isNaN(parseFloat(value)) && isFinite(value);
+}
 
 function App() {
   const [displayValue, setDisplayValue] = useState("0");
   const [formula, setFormula] = useState("");
   const [evaluated, setEvaluated] = useState(false);
   const [lastAction, setLastAction] = useState(null);
-
-  const precedence = {
-    "+": 1,
-    "-": 1,
-    "*": 2,
-    "/": 2,
-  };
 
   const handleNumberClick = (value) => {
     if (displayValue === "0" || evaluated) {
@@ -76,7 +68,9 @@ function App() {
 
         evalFormula = evalFormula.replace(/(-\d+(\.\d+)?)$/, "($1)");
 
-        const result = eval(evalFormula + displayValue);
+        const result = isNumeric(displayValue)
+          ? eval(evalFormula + displayValue)
+          : 0;
 
         setDisplayValue(String(result));
         setFormula(evalFormula + displayValue + "=" + String(result));
